@@ -1,2 +1,1 @@
-i3xrocks.date.format2: +%Y-%m-%d
-wm.bar.status_config: /home/k/.config/regolith3/i3status-rs/config.toml
+wm.bar.status_config: ~/.config/regolith3/i3status-rs/config.toml
