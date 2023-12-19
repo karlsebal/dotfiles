@@ -1,0 +1,11 @@
+[Desktop Entry]
+X-SnapInstanceName=signal-desktop
+Name=Signal Desktop
+Exec=env BAMF_DESKTOP_FILE_HINT=~/.local/share/applications/signal.desktop /snap/bin/signal-desktop --use-tray-icon --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=/snap/signal-desktop/current/meta/gui/signal-desktop.png
+StartupWMClass=Signal
+Comment=Private messaging from your desktop
+MimeType=x-scheme-handler/sgnl;x-scheme-handler/signalcaptcha;
+Categories=Network;InstantMessaging;Chat;
