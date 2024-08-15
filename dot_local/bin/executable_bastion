@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Connecting to Bastion Host, creating a SOCKS5 proxy on port 9999"
+echo "${@:+Adding options:} $@"
+
+gcloud --project=prod-mdr-service compute ssh bastion -- -qD 9999 "$@"
