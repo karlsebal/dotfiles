@@ -1,0 +1,39 @@
+{{- if eq .chezmoi.hostname "work" }}
+
+find_yesterday() {
+	local days=1 file= i=0 max=365
+
+	while i=$((i+1)); [ $i -le $max ] ; do
+		printf '.' >&2
+		file=$(date -d "$days days ago" -I) 
+		ls ../$file >/dev/null 2>&1 && break
+		days=$((days+1))
+	done
+
+	[ $i -ge $max ] && {
+		echo cannot find yesterday >&2
+		return 1
+	}
+
+	echo $file
+}
+
+work() {
+	local work_dir="$HOME/wrk/$(date -I)"
+
+	pushd $work_dir 2>/dev/null || {
+		echo not found. creating. >&2
+		mkdir $work_dir || return 1
+		pushd $work_dir
+
+		printf "find yesterday." >&2
+		yesterday=$(find_yesterday) && {
+			printf "found.\n"
+			ln "../$yesterday" ./y -s
+		} || {
+			printf "missed.\n"
+		}
+	}
+}
+
+{{- end }}
