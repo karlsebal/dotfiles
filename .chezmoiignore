@@ -1,1 +1,5 @@
 README.md
+
+{{- if ne .chezmoi.hostname "work" }}
+~/.local/bin/bastion*
+{{- end }}
