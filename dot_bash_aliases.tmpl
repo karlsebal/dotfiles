@@ -1,3 +1,12 @@
+
+yl() {
+	yq -C $@|less -R
+}
+
+jl() {
+	jq -C $@|less -R
+}
+
 {{- if eq .chezmoi.hostname "work" }}
 
 find_yesterday() {
@@ -36,4 +45,7 @@ work() {
 	}
 }
 
+alias lab='cd ~/lab'
+
 {{- end }}
+
