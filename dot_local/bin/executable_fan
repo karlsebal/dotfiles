@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+case $1 in
+  start) sudo systemctl start thinkfan.service
+	 ;;
+  stop) sudo systemctl stop thinkfan.service
+        ;;
+  status) systemctl status thinkfan.service
+        ;;
+  *) cat <<-EOT
+	
+	Start/Stop fancontrol
+	
+	usage $0 [start|stop|status]
+	
+EOT
+      ;;
+esac
+
