@@ -49,4 +49,20 @@ alias lab='cd ~/lab'
 
 {{- end }}
 
+gitapitoken() {
+        export GITLAB_USER="karl.liebich"
+        export GITLAB_TOKEN=$(secret-tool lookup service gitapi user karl.liebich)
+        export GITLAB_API_TOKEN=$GITLAB_TOKEN
+        echo set GITLAB_USER and GITLAB_TOKEN/GITLAB_API_TOKEN accordingly
+}
+
+gapi() {
+        # gitapitoken >/dev/null
+        local path
+        path=$1
+        shift
+        curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
+}
+
+
 alias p='python3'
