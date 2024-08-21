@@ -1,3 +1,10 @@
 GCLOUD_COMPLETION=/snap/google-cloud-sdk/current/completion.bash.inc
 
 [ -f $GCLOUD_COMPLETION ] && . $GCLOUD_COMPLETION
+
+[ -d ~/.bash_completion.d ] && {
+	for f in ~/.bash_completion.d/*
+	do
+		. "$f"
+	done
+}
