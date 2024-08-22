@@ -64,5 +64,13 @@ gapi() {
         curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
 }
 
+gqapi() {
+        # gitapitoken >/dev/null
+        local path
+        path=$1
+        shift
+        curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
+}
+
 
 alias p='python3'
