@@ -99,7 +99,32 @@ glapi() {
     )
 }
 
+terraform-gitlab-init() {
+    [ $# -lt 2 ] && { 
+	    echo "usage: terraform-gitlab-init <project_id> <state_name> [Terraform options]"
+    } || {
+	    [ -z "$GITLAB_USER" ] && read -p "Input GitLab User " GITLAB_USER
+	    [ -z "$GITLAB_TOKEN" ] && read -s -p "Input GitLab Token " GITLAB_TOKEN
+	    local host='gitlab.ida-dev.de'
+	    local project_id="${1}"
+	    local state_name="${2}"
+	    echo $state_name
+	    shift 2
+	    terraform init \
+		-backend-config="address=https://${host}/api/v4/projects/${project_id}/terraform/state/${state_name}" \
+		-backend-config="lock_address=https://${host}/api/v4/projects/${project_id}/terraform/state/${state_name}/lock" \
+		-backend-config="unlock_address=https://${host}/api/v4/projects/${project_id}/terraform/state/${state_name}/lock" \
+		-backend-config="username=${GITLAB_USER}" \
+		-backend-config="password=${GITLAB_TOKEN}" \
+		-backend-config="lock_method=POST" \
+		-backend-config="unlock_method=DELETE" \
+		-backend-config="retry_wait_min=5" \
+		"$@"
+	    }
+}
+
 
 
 alias p='python3'
 
+# vi: set ai ft=sh:
