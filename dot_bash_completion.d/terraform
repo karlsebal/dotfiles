@@ -1,0 +1,2 @@
+[ -f /snap/terraform/731/terraform ] && complete -C /snap/terraform/731/terraform terraform
+
