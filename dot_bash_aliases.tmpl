@@ -56,6 +56,7 @@ gitapitoken() {
         echo set GITLAB_USER and GITLAB_TOKEN/GITLAB_API_TOKEN accordingly
 }
 
+# GitLab REST api
 gapi() {
         # gitapitoken >/dev/null
         local path
@@ -64,13 +65,40 @@ gapi() {
         curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
 }
 
-gqapi() {
-        # gitapitoken >/dev/null
-        local path
-        path=$1
+# GitLab GraphQL api
+glapi() {
+    [ "${SHELL##*/}" != "bash" ] && {
+        echo "bash only — but shell is $SHELL"
+        return 1
+    }
+
+    [ -z "$@" ] && {
+        echo "usage: ${FUNCNAME[0]##*/} [query]"        # See bash manual
+        return 1
+    }
+
+    (
+        set -e # in a subshell
+
+        [ -z "$GITLAB_TOKEN" ] && {
+            read -s -p 'Please provide GitLab Token or set $GITLAB_TOKEN ' GITLAB_TOKEN
+        }
+
+        local query
+        query="$(echo $1|sed 's.".\\".g')"
         shift
-        curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
+
+        printf 'Query: \n %s' "$query" >&2
+
+        curl -s https://gitlab.ida-dev.de/api/graphql \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $GITLAB_TOKEN" \
+            -d '{"query": "'"$query"'"}' \
+            "$@"
+    )
 }
+
 
 
 alias p='python3'
