@@ -170,6 +170,60 @@ gitlab-terraform-init() {
 	}
 }
 
+mr() {
+	gitapitoken >/dev/null
+
+	current="$(git branch --show-current)" || { echo could not get current branch; return; }
+	title="$(git show -s --format='%s')" || { echo could not get current title; return; }
+	description="$(git show -s --format='%b')" || { echo could not get current body; return; }
+
+	. .env && echo .env has been sourced || echo no .env found
+
+	[ -z "$PROJECT_ID" ] && {
+		read -p "project id? " PROJECT_ID
+		echo "PROJECT_ID=$PROJECT_ID" >> .env
+		echo added project id to .env
+	}
+
+	url="https://gitlab.ida-dev.de/api/v4/projects/$PROJECT_ID/merge_requests"
+
+	printf '\nselect target\n\n'
+
+	select target in $(git branch|awk '{if ($1 == "*"){ print $2 } else { print $1} }')
+	do 
+		tmp=$(mktemp)
+		printf "%s\n\n%s" "$title" "$description" > $tmp
+		vim $tmp
+		title="$(head -n1 $tmp)"
+		description="$(tail -n+3 $tmp)"
+		rm "$tmp"
+
+		request="{\"source_branch\": \"$current\", \"target_branch\": \"$target\","
+		request="$request \"title\": \"$title\", \"description\": \"$description\","
+		request="$request"'"squash": false, "remove_source_branch": true}'
+
+		# escape newlines in commit message, see https://superuser.com/questions/955935/how-can-i-replace-a-newline-with-its-escape-sequence
+		request=${request//$'\n'/\\n}
+		echo "$request" | jq || return $?
+
+		read -p "OK? " -n1 
+
+		# jq in curl sanitizes the data in case there are invisible chars messing up the request
+		case "$REPLY" in
+			""|[Yy]) response=$(curl "$url" -H 'Content-Type: application/json' -H "PRIVATE-TOKEN: $GITLAB_TOKEN" -d "$request") || echo error
+				 mr_url=$(echo "$response"|jq -r '.web_url')
+				 echo "$response"|jq
+				 printf '%s\n' "$mr_url" "$mr_url/edit"
+				 sensible-browser "$mr_url"
+					 ;;
+			*) printf "\n\nabort\n" ;;
+		esac
+		
+		break
+	done
+	unset PROJECT_ID
+}
+
 
 alias p='python3'
 
