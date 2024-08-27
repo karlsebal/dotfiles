@@ -51,8 +51,8 @@ alias lab='cd ~/lab'
 
 gitapiitoken() {
 	export GITLAB_HOST=gitlab.ida-dev.de
-        export GITLAB_USER="mcs-operations"
-        export GITLAB_TOKEN=$(secret-tool lookup service gitapi user mcs-operations)
+        export GITLAB_USER="operations-mcs"
+        export GITLAB_TOKEN=$(secret-tool lookup service gitapi user operations-mcs)
         export GITLAB_API_TOKEN=$GITLAB_TOKEN
         echo set GITLAB_USER and GITLAB_TOKEN/GITLAB_API_TOKEN accordingly
 }
