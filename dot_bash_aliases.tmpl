@@ -171,7 +171,7 @@ gitlab-terraform-init() {
 }
 
 mr() {
-	gitapitoken >/dev/null
+	[ -z "$GITLAB_TOKEN" ] && gitapitoken >/dev/null
 
 	current="$(git branch --show-current)" || { echo could not get current branch; return; }
 	title="$(git show -s --format='%s')" || { echo could not get current title; return; }
