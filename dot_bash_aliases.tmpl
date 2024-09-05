@@ -71,7 +71,7 @@ gapi() {
         local path
         path=$1
         shift
-        curl -s -H "Private-Token: $GITLAB_TOKEN" https://gitlab.ida-dev.de/api/v4$path "$@"
+        curl -s -H "Private-Token: $GITLAB_TOKEN" https://$GITLAB_HOST/api/v4$path "$@"
 }
 
 # GitLab GraphQL api
