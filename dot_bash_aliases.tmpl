@@ -185,7 +185,7 @@ mr() {
 		echo added project id to .env
 	}
 
-	url="https://gitlab.ida-dev.de/api/v4/projects/$PROJECT_ID/merge_requests"
+	url="https://$GITLAB_HOST/api/v4/projects/$PROJECT_ID/merge_requests"
 
 	printf '\nselect target\n\n'
 
