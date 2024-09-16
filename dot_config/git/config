@@ -1,0 +1,10 @@
+[commit]
+	gpgSign = true
+[user]
+	email = karl.liebich@mcs-team.de
+	name = Karl Liebich
+	signingKey = /home/k/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[push]
+	autoSetupRemote = true
