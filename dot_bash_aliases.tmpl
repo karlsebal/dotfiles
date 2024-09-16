@@ -177,12 +177,12 @@ mr() {
 	title="$(git show -s --format='%s')" || { echo could not get current title; return; }
 	description="$(git show -s --format='%b')" || { echo could not get current body; return; }
 
-	. .env && echo .env has been sourced || echo no .env found
+	. .project_id && echo .project_id has been sourced || echo no .project_id found
 
 	[ -z "$PROJECT_ID" ] && {
 		read -p "project id? " PROJECT_ID
-		echo "PROJECT_ID=$PROJECT_ID" >> .env
-		echo added project id to .env
+		echo "PROJECT_ID=$PROJECT_ID" >> .project_id
+		echo added project id to .project_id
 	}
 
 	url="https://$GITLAB_HOST/api/v4/projects/$PROJECT_ID/merge_requests"
@@ -214,7 +214,8 @@ mr() {
 				 mr_url=$(echo "$response"|jq -r '.web_url')
 				 echo "$response"|jq
 				 printf '%s\n' "$mr_url" "$mr_url/edit"
-				 sensible-browser "$mr_url"
+				 #sensible-browser "$mr_url"
+				 flatpak run com.brave.Browser "$mr_url"
 					 ;;
 			*) printf "\n\nabort\n" ;;
 		esac
