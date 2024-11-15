@@ -2,6 +2,7 @@ GCLOUD_COMPLETION=/snap/google-cloud-sdk/current/completion.bash.inc
 HELM_COMPLETION=/snap/google-cloud-sdk/current/completion.bash.inc
 
 [ -f $GCLOUD_COMPLETION ] && . $GCLOUD_COMPLETION
+[ -f $HELM_COMPLETION ] && . $HELM_COMPLETION
 
 [ -d ~/.bash_completion.d ] && {
 	for f in ~/.bash_completion.d/*
