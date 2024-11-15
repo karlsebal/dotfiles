@@ -1,10 +1,10 @@
 
 yl() {
-	yq -C $@|less -R
+	yq -C "$@"|less -R
 }
 
 jl() {
-	jq -C $@|less -R
+	jq -C "$@"|less -R
 }
 
 {{- if eq .chezmoi.hostname "work" }}
