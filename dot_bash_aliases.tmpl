@@ -49,7 +49,7 @@ mlf() {
   echo "Find in MLab…"
   f=$(find ~/lab/ -type d -name "$@" )
   [ $(echo "$f"|wc -l) -gt 1 ] && {
-    local PS3="More than one directory…"
+    local PS3="Which one? "
     select f in $f;
     do
       pushd $f
