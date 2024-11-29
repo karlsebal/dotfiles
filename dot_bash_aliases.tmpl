@@ -119,7 +119,7 @@ glapi() {
 
         printf 'Query: \n %s' "$query" >&2
 
-        curl -s https://gitlab.ida-dev.de/api/graphql \
+        curl -s https://gitlab.com/api/graphql \
             -X POST \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $GITLAB_TOKEN" \
