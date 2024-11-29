@@ -45,9 +45,27 @@ work() {
 	}
 }
 
-alias lab='cd ~/lab'
-alias mlab='cd ~/lab/ndrde/mdr/'
-alias playground='cd ~/lab/playground'
+mlf() {
+  echo "Find in MLab…"
+  f=$(find ~/lab/ -type d -name "$@" )
+  [ $(echo "$f"|wc -l) -gt 1 ] && {
+    local PS3="More than one directory…"
+    select f in $f;
+    do
+      pushd $f
+      break
+    done
+    return
+  } || [ "$f" != "" ] && pushd $f || echo "Nothing found."
+}
+
+lab() {
+  cd ~/lab
+}
+
+mlab() {
+  cd ~/lab/ndrde/mdr
+}
 
 {{- end }}
 
