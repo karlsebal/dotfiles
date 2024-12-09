@@ -46,7 +46,7 @@ work() {
 }
 
 mlf() {
-  f=$(find ~/lab/ -type d -path "*$@*" )
+  f=$(find ~/lab/ -type d -name "*$@*" )
   [ $(echo "$f"|wc -l) -gt 1 ] && {
     select f in $f;
     do
