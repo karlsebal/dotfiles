@@ -65,6 +65,10 @@ mlab() {
   cd ~/lab/ndrde/mdr
 }
 
+playground() {
+  cd ~/lab/playground
+}
+
 {{- end }}
 
 gitapiitoken() {
@@ -241,6 +245,22 @@ mr() {
 		break
 	done
 	unset PROJECT_ID
+}
+
+gds() {
+  echo "Delete Stale…"
+  stale_branches=$(git branch | grep -v main)
+  [ -n "$stale_branches" ] && {
+	  git branch -d  $stale_branches || {
+		read -p 'Delete anyway? (y/n)' -n1 && echo
+		case $REPLY in 
+			[yY]) git branch -D $(git branch | grep -v main) 
+				;;
+			*) echo abort…
+				;;
+		esac
+	  }
+  }
 }
 
 
