@@ -1,2 +1,6 @@
 .idea
 .project_id
+.terraform
+**/.terraform*
+**/.terraform
+

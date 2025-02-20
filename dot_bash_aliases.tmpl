@@ -249,7 +249,7 @@ mr() {
 
 gds() {
   echo "Delete Stale…"
-  stale_branches=$(git branch | grep -v main)
+  stale_branches=$(git branch | grep -v main | sed 's/^*//')
   [ -n "$stale_branches" ] && {
 	  git branch -d  $stale_branches || {
 		read -p 'Delete anyway? (y/n)' -n1 && echo
