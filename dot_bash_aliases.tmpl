@@ -82,7 +82,7 @@ gitapiitoken() {
 gitapitoken() {
 	export GITLAB_HOST=gitlab.com
         export GITLAB_USER="karl.liebich_mcs-team"
-        export GITLAB_TOKEN=$(secret-tool lookup service gitapi user karl.liebich-mcs-team)
+        export GITLAB_TOKEN=$(secret-tool lookup service gitapi user karl.liebich_mcs-team)
         export GITLAB_API_TOKEN=$GITLAB_TOKEN
         echo set GITLAB_USER and GITLAB_TOKEN/GITLAB_API_TOKEN accordingly
 }
