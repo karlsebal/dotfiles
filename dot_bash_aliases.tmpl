@@ -57,6 +57,14 @@ mlf() {
   } || [ "$f" != "" ] && pushd $f || echo "Nothing found."
 }
 
+mlff() {
+  f=$(find ~/lab/ -type d -name "*$@*" )
+  [ $(echo "$f"|wc -l) -gt 1 ] && {
+    pushd $(printf "$f" | fzf)
+    return
+  } || [ "$f" != "" ] && pushd $f || echo "Nothing found."
+}
+
 lab() {
   cd ~/lab
 }
