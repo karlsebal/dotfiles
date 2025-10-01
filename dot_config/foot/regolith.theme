@@ -1,0 +1,29 @@
+# Copy from regolith’s gnome-terminal theme
+
+font=BitstreamVeraSansMono Nerd Font:size=12
+
+[colors]
+
+background=1f2430
+foreground=cbccc6
+
+regular0=1f2430  # black
+regular1=ff3333  # red
+regular2=a6cc70  # green
+regular3=ffd580  # yellow
+regular4=77a8d9  # blue
+regular5=b48ead  # magenta
+regular6=95e6cb  # cyan
+regular7=cbccc6  # white
+
+## Bright colors (color palette 8-15)
+bright0=bfbab0   # bright black
+bright1=ff3333   # bright red
+bright2=bae67e   # bright green
+bright3=ffe6b3   # bright yellow
+bright4=73d0ff   # bright blue
+bright5=d4bfff   # bright magenta
+bright6=5ccfe6   # bright cyan
+bright7=ffffff   # bright white
+
+# vim: ft=dosini
