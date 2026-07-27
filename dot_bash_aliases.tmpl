@@ -70,11 +70,11 @@ lab() {
 }
 
 mlab() {
-  cd ~/lab/ndrde/mdr
+  cd ~/lab/git/gitlab.com/ndrde/mdr
 }
 
 playground() {
-  cd ~/lab/playground
+  cd $PLAYGROUND
 }
 
 {{- end }}
@@ -299,5 +299,7 @@ gds() {
 alias p='python3'
 alias tmp='pushd $(mktemp -d)'
 alias tfmt='tofu fmt -recursive'
+
+PLAYGROUND=/home/k/lab/git/gitlab.com/ndrde/mdr/operations/playground/karl-liebich
 
 # vi: set ai ft=sh:
